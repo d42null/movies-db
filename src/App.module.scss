@@ -1,0 +1,38 @@
+
+@use "./styles/shared";
+.root{
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    background-color: #282c34;
+}
+.logo{
+    height: 5vmin;
+    pointer-events: none;
+    padding: 1rem;
+    filter:invert(1);
+}
+.header{
+    min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: shared.$primary-color;
+  ul{
+    list-style: none;
+    li{
+        display: inline-block;
+        margin: 10px;
+    }
+  }
+}
+.link {
+    color: shared.$link-color;
+  }
+  .main{
+    color: shared.$primary-color;
+    min-height: 90vh;
+    padding: 1rem;
+  }
