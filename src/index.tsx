@@ -15,10 +15,13 @@ import Movies  from "./features/Movies/Movies";
 import { Provider } from "react-redux";
 import store from "./store";
 import Home from './features/Home/Home';
+import { ErrorBoundary } from './ErrorBoundary';
 function AppEntrypoint(){
   return(
     <Provider store={store}>
+      <ErrorBoundary>
       <App/>
+      </ErrorBoundary>
     </Provider>
   )
 }
