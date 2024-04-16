@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import CountdownText from "./CountdownText";
 import { CountdownVideo } from "./CountdownVideo";
+import { MapView } from "./MapView";
 
 export function About(){
     return (
@@ -8,7 +9,7 @@ export function About(){
             
            <CountdownText />
           <CountdownVideo />
-          {/* <MapView />  */}
+          <MapView /> 
         </Container>
       );
     
