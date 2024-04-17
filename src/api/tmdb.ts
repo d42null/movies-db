@@ -1,4 +1,5 @@
 import config from "../configuration";
+import { Movie } from "../reducers/movies";
 async function get<TBody>(relativeUrl: string): Promise<TBody> {
   const options = {
     method: "GET",
@@ -21,6 +22,12 @@ export interface MovieDetails {
 interface PageResponse<TResult> {
   results: TResult[];
   page: number;
+  total_pages:number;
+}
+interface PageDetails<TResult> {
+  results: TResult[];
+  page: number;
+  totalPages:number;
 }
 interface Configuration {
   images: {
@@ -32,10 +39,14 @@ export const client = {
     return get<Configuration>("/configuration");
   },
 
-  async getNowPlaying(): Promise<MovieDetails[]> {
+  async getNowPlaying(page:number=1): Promise<PageDetails<MovieDetails>> {
     const response = await get<PageResponse<MovieDetails>>(
-      "/movie/now_playing?page=1"
+      `/movie/now_playing?page=${page}`
     );
-    return response.results;
+    return{
+      results:response.results,
+      page:response.page,
+      totalPages:response.total_pages
+    }
   },
 };
