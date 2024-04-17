@@ -19,7 +19,7 @@ interface MovieCardProps {
   image?: string;
   enableUserActions?: boolean;
 }
-export function MovieCard({
+export default function MovieCard({
   id,
   title,
   overview,
