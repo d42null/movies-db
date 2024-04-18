@@ -25,7 +25,7 @@ interface MoviesFilterProps {
   onApply(filters: Filters): void;
 }
 
-export function MoviesFilter({ onApply }: MoviesFilterProps) {
+ function MoviesFilter({ onApply }: MoviesFilterProps) {
   const { control, handleSubmit, formState } = useForm<Filters>({
     defaultValues: {
       keywords: [],
@@ -116,3 +116,4 @@ export function MoviesFilter({ onApply }: MoviesFilterProps) {
     </Paper>
   );
 }
+export default MoviesFilter
