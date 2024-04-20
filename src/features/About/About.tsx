@@ -3,7 +3,7 @@ import CountdownText from "./CountdownText";
 import { CountdownVideo } from "./CountdownVideo";
 import { MapView } from "./MapView";
 
-export function About(){
+export default function About(){
     return (
         <Container sx={{ py: 8 }} maxWidth="md">
             

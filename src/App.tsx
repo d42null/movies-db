@@ -1,30 +1,26 @@
-import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import {  CssBaseline,  ThemeProvider, createTheme } from '@mui/material';
-import { teal } from '@mui/material/colors';
-import { AppHeader } from './AppHeader';
-import { AuthContext, AuthInfo, anonymousUser } from './AuthContext';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Outlet } from "react-router-dom";
+import { CssBaseline } from "@mui/material";
+import { teal } from "@mui/material/colors";
+import { AppHeader } from "./features/Header/AppHeader";
 
-const defaultTheme=createTheme(
-  {palette:{
-    primary:teal,
-    secondary:{
-      main:"#96000f"
-    }
-  }}
-)
-const fakeAuth:AuthInfo={user:{name:"Diana"}}
+const defaultTheme = createTheme({
+  palette: {
+    primary: teal,
+    secondary: {
+      main: "#96000f",
+    },
+  },
+});
+
 function App() {
-  const [auth,setAuth]=useState<AuthInfo>({user:anonymousUser})
   return (
     <ThemeProvider theme={defaultTheme}>
-      <CssBaseline/>
-      <AuthContext.Provider value={auth}>
-      <AppHeader onLogin={()=>setAuth(fakeAuth)} onLogout={()=>setAuth({user:anonymousUser})}/>
-      <main >
-      <Outlet/>
+      <CssBaseline />
+      <AppHeader />
+      <main>
+        <Outlet />
       </main>
-      </AuthContext.Provider>
     </ThemeProvider>
   );
 }

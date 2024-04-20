@@ -1,66 +1,86 @@
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
 
-
-import React, { Suspense, lazy } from "react";
+import { StrictMode, Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
-import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { About } from "./features/About/About";
-// import Movies  from "./features/Movies/Movies";
 import { Provider } from "react-redux";
+import { LinearProgress } from "@mui/material";
 import store from "./store";
-import Home from './features/Home/Home';
-import { ErrorBoundary } from './ErrorBoundary';
-import { LinearProgress } from '@mui/material';
-import { Extra } from './features/Extra/Extra';
+import About from "./features/About/About";
+import Home from "./features/Home/Home";
+import { ErrorBoundary } from "./ErrorBoundary";
+import { Extra } from "./features/Extra/Extra";
+import { AuthCallback } from "./auth/AuthCallback";
+import { StatefulAuthProvider } from "./auth/StatefulAuthProvider";
+import { Profile } from "./features/Profile/Profile";
+import { AuthenticatedGuard } from "./auth/AuthenticatedGuard";
+import { Protected } from "./features/Protected/Protected";
 
 const Movies = lazy(() => import("./features/Movies/Movies"));
-function AppEntrypoint(){
-  return(
-    <Provider store={store}>
-      <ErrorBoundary>
-      <App/>
-      </ErrorBoundary>
-    </Provider>
-  )
+
+function AppEntrypoint() {
+  return (
+    <StatefulAuthProvider>
+      <Provider store={store}>
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
+      </Provider>
+    </StatefulAuthProvider>
+  );
 }
+
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <AppEntrypoint/>
-    ),
+    element: <AppEntrypoint />,
     children: [
-      { path: "/", element: <Home /> },
-      { path: "about", element: <About /> },
-      { path: "movies", 
-      // lazy:()=>import("./features/Movies/Movies"),
-      element: (
-        <Suspense fallback={<LinearProgress sx={{ mt: 1 }} />}>
-          <Movies />
-        </Suspense>
-      ),
-      // element: <Movies/>
-     },
-     {
-      path:"extra",
-      element:<Extra/>
-     },
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "movies",
+        element: (
+          <Suspense fallback={<LinearProgress sx={{ mt: 1 }} />}>
+            <Movies />
+          </Suspense>
+        ),
+      },
+      {
+        path: "extra",
+        element: <Extra />,
+      },
+      {
+        path: "about",
+        element: <About />,
+      },
+      {
+        path: "profile",
+        element: <AuthenticatedGuard component={Profile} />,
+      },
+      {
+        path: "protected",
+        element: <AuthenticatedGuard component={Protected} />,
+      },
+      {
+        path: "callback",
+        element: <AuthCallback />,
+      },
     ],
   },
 ]);
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
-  <React.StrictMode>
+  <StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

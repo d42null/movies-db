@@ -16,6 +16,7 @@ import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Genre, KeywordItem, useGetGenresQuery, useGetKeywordsQuery } from "../../services/tmdb";
 
+
 export interface Filters {
   keywords: KeywordItem[];
   genres: number[];
@@ -25,7 +26,7 @@ interface MoviesFilterProps {
   onApply(filters: Filters): void;
 }
 
-export default function MoviesFilter({ onApply }: MoviesFilterProps) {
+export function MoviesFilter({ onApply }: MoviesFilterProps) {
   const { control, handleSubmit, formState } = useForm<Filters>({
     defaultValues: {
       keywords: [],
